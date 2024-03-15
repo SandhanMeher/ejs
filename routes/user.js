@@ -43,7 +43,7 @@ router.get("/user:id",async (req,res)=>{
 
 
 // update user by id 
-router.put("/user:id",async (req,res)=>{
+router.patch("/user:id",async (req,res)=>{
     const _id=req.params.id;
     
     const a=await StudentCollection.findByIdAndUpdate(_id,req.body,{
@@ -53,7 +53,16 @@ router.put("/user:id",async (req,res)=>{
     res.status(200).send("updated"+a);
 })
 
-
+// if update the entire 
+router.put("/user:id",async (req,res)=>{
+    const _id=req.params.id;
+    
+    const a=await StudentCollection.findByIdAndUpdate(_id,req.body,{
+        new:true
+    })
+    console.log(a);
+    res.status(200).send("updated"+a);
+})
 // remove student from .....
 router.delete("/user:id",async (req,res)=>{
     const _id=req.params.id;
@@ -61,8 +70,10 @@ router.delete("/user:id",async (req,res)=>{
     console.log(a)
     if(a){
         res.status(200).send("deleted"+a);
+    }else{
+
+        res.send("not present");
     }
-    res.send("not present");
 })
 
 
