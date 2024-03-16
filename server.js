@@ -7,10 +7,14 @@ const app=express()
 require("./model/connection")
 const {StudentCollection}=require("./model/studentSchema")
 const {router}=require("./routes/user")
-const { nextTick } = require("process")
 
 app.use(express.json());
 app.use(router)
+app.set("view engine","ejs")
+
+app.get("/",(req,res)=>{
+    res.render("index")
+})
 
 app.use("*",(req,res,next)=>{
     res.send("not rourt")
