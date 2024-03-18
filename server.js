@@ -33,8 +33,12 @@ app.post("/submit",async (req,res)=>{
         rollno
     })
     
-     await a.save()
-    res.render("index")
+     await a.save().then(()=>{
+
+         res.render("index")
+     }).catch(()=>{
+        res.send("name should be unique ......")
+     })
 
 })
 
