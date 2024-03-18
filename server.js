@@ -1,13 +1,12 @@
 const express=require("express")
-const path=require("path")
 const mongoose=require("mongoose")
 const bodyParser=require("body-parser")
-const bcrypt=require("bcrypt")
+
+require("dotenv").config()
 
 const app=express()
 
 require("./model/connection")
-const {StudentCollection}=require("./model/studentSchema")
 const {router}=require("./routes/user")
 const {registationRoute}=require("./routes/registationRoute")
 const {loginRoute}=require("./routes/loginRoute")
@@ -31,9 +30,11 @@ app.use(registationRoute)
 // login routs
 app.use(loginRoute)
 
+// it handel for all other routes 
 app.use("*",(req,res,next)=>{
     res.send("not rourt")
 })
+
 const port =process.env.port || 1000;
 app.listen(port,()=>{
     console.log(`listening at ${port}`)
