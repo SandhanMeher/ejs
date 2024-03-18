@@ -5,7 +5,7 @@ const studentSchema=new mongoose.Schema({
         require:true,
     },
     rollno:{
-        type:Number,
+        type:String,
         require:true
     }
 });
