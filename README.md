@@ -29,7 +29,7 @@ To run the project, execute the following command:
 npm run dev
 ```
 
-After running the command, navigate to `http://localhost:3000` in your web browser to access the application.
+After running the command, navigate to `http://localhost:2000` in your web browser to access the application.
 
 ## Technologies Used
 
