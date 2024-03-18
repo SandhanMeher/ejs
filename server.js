@@ -23,7 +23,7 @@ app.get("/registation",(req,res)=>{
     res.render("registation")
 })
 
-app.post("/submit",async (req,res)=>{
+app.post("/registation",async (req,res)=>{
     const name=req.body.name;
     const rollnoGet=req.body.rollno;
     const rollno=await bcrypt.hash(rollnoGet,10)
@@ -43,15 +43,13 @@ app.post("/submit",async (req,res)=>{
 })
 
 
-app.get("/signin",(req,res)=>{
+app.get("/login",(req,res)=>{
     res.render("login");
 })
 
 app.post("/login",async (req,res)=>{
     
     console.log(req.body)
-    // const rollno=req.body.rollno;
-    // thinking that name should be unique
 
 
     const a=await StudentCollection.findOne({
