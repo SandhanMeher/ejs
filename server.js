@@ -9,64 +9,27 @@ const app=express()
 require("./model/connection")
 const {StudentCollection}=require("./model/studentSchema")
 const {router}=require("./routes/user")
+const {registationRoute}=require("./routes/registationRoute")
+const {loginRoute}=require("./routes/loginRoute")
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.set("view engine","ejs")  
-app.use(router)
+
+
 
 app.get("/",(req,res)=>{
     res.render("index")
 })
 
-app.get("/registation",(req,res)=>{
-    res.render("registation")
-})
+// routes for addEventListener,delete,find update ,by id find or delete /update
+app.use(router)
 
-app.post("/registation",async (req,res)=>{
-    const name=req.body.name;
-    const rollnoGet=req.body.rollno;
-    const rollno=await bcrypt.hash(rollnoGet,10)
-    
-    const a= new StudentCollection({
-        name,
-        rollno
-    })
-    
-     await a.save().then(()=>{
+// registration routs 
+app.use(registationRoute)
 
-         res.render("index")
-     }).catch(()=>{
-        res.send("name should be unique ......")
-     })
-
-})
-
-
-app.get("/login",(req,res)=>{
-    res.render("login");
-})
-
-app.post("/login",async (req,res)=>{
-    
-    console.log(req.body)
-
-
-    const a=await StudentCollection.findOne({
-        name:req.body.name
-    });
-    console.log(a)
-    if(a){
-        const match=await bcrypt.compare(req.body.rollno,a.rollno);
-        if(match){
-            res.send(a);
-        }else{
-            res.send("password not matched")
-        }
-    }else{
-        res.send("name matched but nott rollno")
-    }
-})
+// login routs
+app.use(loginRoute)
 
 app.use("*",(req,res,next)=>{
     res.send("not rourt")
